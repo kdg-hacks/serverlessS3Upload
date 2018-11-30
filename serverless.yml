@@ -2,13 +2,14 @@ service: imageUploadDemo
 
 provider:
   name: aws
-  runtime: nodejs4.3
+  region: ap-northeast-1
+  runtime: nodejs8.10
   # Provide permissions for this service to manipulate S3.
   iamRoleStatements:
     - Effect: "Allow"
       Action:
         - "s3:*"
-      Resource: "arn:aws:s3:::[bucketName]/*"
+      Resource: "arn:aws:s3:::hello-camera/*"
 
 # Expose function to public API for POST requests.
 functions:
@@ -26,7 +27,7 @@ resources:
     UploadBucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: [bucketName]
+        BucketName: hello-camera
         AccessControl: PublicRead
         CorsConfiguration:
           CorsRules:
